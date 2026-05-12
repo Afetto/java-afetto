@@ -1,4 +1,4 @@
-package br.com.fiap.java_afetto.repository;
+package br.com.fiap.java_afetto.repository.endereco;
 
 import br.com.fiap.java_afetto.model.endereco.Pais;
 import org.springframework.data.jpa.repository.JpaRepository;
