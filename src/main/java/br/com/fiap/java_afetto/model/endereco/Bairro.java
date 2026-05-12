@@ -2,6 +2,7 @@ package br.com.fiap.java_afetto.model.endereco;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -14,5 +15,11 @@ public class Bairro {
     private UUID uuid;
     @Column(name = "nome")
     private String nome;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cidade", nullable = false)
+    private Cidade cidade;
+    @OneToMany(mappedBy = "bairro")
+    private List<Logradouro> logradouros;
 
 }

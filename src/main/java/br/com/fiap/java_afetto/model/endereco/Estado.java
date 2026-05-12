@@ -2,6 +2,7 @@ package br.com.fiap.java_afetto.model.endereco;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -16,5 +17,11 @@ public class Estado {
     private String nome;
     @Column(name = "sigla")
     private String sigla;
+
+    @ManyToOne
+    @JoinColumn(name = "id_pais", nullable = false)
+    private Pais pais;
+    @OneToMany(mappedBy = "estado")
+    private List<Cidade> cidades;
 
 }

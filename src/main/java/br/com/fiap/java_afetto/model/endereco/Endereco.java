@@ -24,4 +24,7 @@ public class Endereco {
     @Column(name = "longitude", precision = 10, scale = 7)
     private BigDecimal longitude;
 
+    @ManyToOne
+    @JoinColumn(name = "id_logradouro", nullable = false)
+    private Logradouro logradouro;
 }
