@@ -5,10 +5,12 @@ import br.com.fiap.java_afetto.dto.pais.PaisRequest;
 import br.com.fiap.java_afetto.dto.pais.PaisResponse;
 import br.com.fiap.java_afetto.mapper.PaisMapper;
 import br.com.fiap.java_afetto.model.endereco.Pais;
+import br.com.fiap.java_afetto.repository.endereco.EstadoRepository;
 import br.com.fiap.java_afetto.repository.endereco.PaisRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,11 +22,13 @@ import java.util.UUID;
 public class PaisService {
     private final PaisRepository paisRepository;
     private final PaisMapper paisMapper;
+    private final EstadoRepository estadoRepository;
 
     @Autowired
-    public PaisService(PaisRepository paisRepository, PaisMapper paisMapper) {
+    public PaisService(PaisRepository paisRepository, PaisMapper paisMapper, EstadoRepository estadoRepository) {
         this.paisRepository = paisRepository;
         this.paisMapper = paisMapper;
+        this.estadoRepository = estadoRepository;
     }
 
 
@@ -56,6 +60,11 @@ public class PaisService {
     public void delete(UUID id) {
         if (!paisRepository.existsById(id)) {
             throw new EntityNotFoundException("País não encontrado");
+        }
+        if (estadoRepository.existsByPais_Id(id)) {
+            throw new DataIntegrityViolationException(
+                    "Não é possível excluir um país que possui estados cadastrados"
+            );
         }
         paisRepository.deleteById(id);
     }

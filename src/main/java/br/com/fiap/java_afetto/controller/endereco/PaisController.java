@@ -24,7 +24,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/pais")
-@Tag(name = "api-afetto-pais")
+@Tag(name = "CRUD-PAISES")
 public class PaisController {
 
     private final PaisService paisService;

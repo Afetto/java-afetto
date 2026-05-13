@@ -12,7 +12,7 @@ public class Estado {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_estado")
-    private UUID uuid;
+    private UUID id;
     @Column(name = "nome")
     private String nome;
     @Column(name = "sigla")
@@ -24,4 +24,43 @@ public class Estado {
     @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades;
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSigla() {
+        return sigla;
+    }
+
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
+    public List<Cidade> getCidades() {
+        return cidades;
+    }
+
+    public void setCidades(List<Cidade> cidades) {
+        this.cidades = cidades;
+    }
 }
