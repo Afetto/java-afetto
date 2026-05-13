@@ -80,7 +80,7 @@ public class EstadoController {
 
     @Operation(summary = "Deleta o estado")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduto(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteEstado(@PathVariable UUID id) {
         estadoService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

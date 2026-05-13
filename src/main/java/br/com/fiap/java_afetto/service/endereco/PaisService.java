@@ -32,10 +32,10 @@ public class PaisService {
     }
 
 
-    public Pais create(PaisRequest paisRequest){
+    public PaisResponse create(PaisRequest paisRequest){
         Pais pais = new Pais();
         BeanUtils.copyProperties(paisRequest, pais);
-        return paisRepository.save(pais);
+        return paisMapper.paisToResponse(paisRepository.save(pais));
     }
 
     public PaisResponse read(UUID id) {

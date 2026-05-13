@@ -35,10 +35,9 @@ public class PaisController {
 
     @Operation(summary = "Cria um país")
     @PostMapping
-    public ResponseEntity<Pais> createPais(@Valid @RequestBody PaisRequest paisRequest){
-        Pais paisSalvo = paisService.create(paisRequest);
+    public ResponseEntity<PaisResponse> createPais(@Valid @RequestBody PaisRequest paisRequest){
+        PaisResponse paisSalvo = paisService.create(paisRequest);
         return new ResponseEntity<>(paisSalvo, HttpStatus.CREATED);
-
     }
 
     @Operation(summary = "Busca um país por id")
@@ -81,7 +80,7 @@ public class PaisController {
 
     @Operation(summary = "Deleta o país")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduto(@PathVariable UUID id) {
+    public ResponseEntity<Void> deletePais(@PathVariable UUID id) {
         paisService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
