@@ -12,7 +12,7 @@ public class Logradouro {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_logradouro")
-    private UUID uuid;
+    private UUID id;
     @Column(name = "nome")
     private String nome;
 
@@ -22,4 +22,35 @@ public class Logradouro {
     @OneToMany(mappedBy = "logradouro")
     private List<Endereco> enderecos;
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Bairro getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(Bairro bairro) {
+        this.bairro = bairro;
+    }
+
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
+    }
 }

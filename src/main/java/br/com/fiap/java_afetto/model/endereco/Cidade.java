@@ -12,7 +12,7 @@ public class Cidade {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_cidade")
-    private UUID uuid;
+    private UUID id;
     @Column(name = "nome")
     private String nome;
 
@@ -22,4 +22,35 @@ public class Cidade {
     @OneToMany(mappedBy = "cidade")
     private List<Bairro> bairros;
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public List<Bairro> getBairros() {
+        return bairros;
+    }
+
+    public void setBairros(List<Bairro> bairros) {
+        this.bairros = bairros;
+    }
 }

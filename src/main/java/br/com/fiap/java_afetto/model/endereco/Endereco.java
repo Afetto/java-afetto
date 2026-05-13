@@ -12,7 +12,7 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_endereco")
-    private UUID uuid;
+    private UUID id;
     @Column(name = "numero")
     private String numero;
     @Column(name = "complemento")
@@ -27,4 +27,60 @@ public class Endereco {
     @ManyToOne
     @JoinColumn(name = "id_logradouro", nullable = false)
     private Logradouro logradouro;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(BigDecimal latitude) {
+        this.latitude = latitude;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
+    }
+
+    public Logradouro getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(Logradouro logradouro) {
+        this.logradouro = logradouro;
+    }
 }
