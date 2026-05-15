@@ -20,11 +20,11 @@ public class UsuarioMapper {
         return new UsuarioResponse(usuario.getId(), usuario.getNome(), usuario.getCpf(), usuario.getEmail(), usuario.getDataNascimento(), usuario.getTelefone(), linkEndereco);
     }
 
-    public UsuarioLista usuarioToResponseLista(Usuario usuario){
-        Link linkUsuario = linkTo(methodOn(UsuarioController.class).readUsuario(usuario.getId())).withRel("Detalhes do usuário");
-        Link linkEndereco = usuario.getEndereco() != null ?
-                linkTo(methodOn(EnderecoController.class).readEndereco(usuario.getEndereco().getId())).withRel("Detalhes do endereço"): null;
-        return new UsuarioLista(usuario.getNome(), usuario.getTelefone(), linkUsuario, linkEndereco);
-    }
+//    public UsuarioLista usuarioToResponseLista(Usuario usuario){
+//        Link linkUsuario = linkTo(methodOn(UsuarioController.class).readUsuario(usuario.getId())).withRel("Detalhes do usuário");
+//        Link linkEndereco = usuario.getEndereco() != null ?
+//                linkTo(methodOn(EnderecoController.class).readEndereco(usuario.getEndereco().getId())).withRel("Detalhes do endereço"): null;
+//        return new UsuarioLista(usuario.getNome(), usuario.getTelefone(), linkUsuario, linkEndereco);
+//    }
 
 }

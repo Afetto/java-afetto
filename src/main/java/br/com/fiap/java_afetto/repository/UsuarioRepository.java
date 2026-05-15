@@ -1,4 +1,9 @@
 package br.com.fiap.java_afetto.repository;
 
-public interface UsuarioRepository {
+import br.com.fiap.java_afetto.model.Usuario;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.UUID;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, UUID> {
 }
