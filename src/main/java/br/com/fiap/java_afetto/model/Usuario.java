@@ -4,7 +4,7 @@ import br.com.fiap.java_afetto.model.endereco.Endereco;
 import br.com.fiap.java_afetto.model.pet.Pet;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,7 +21,7 @@ public class Usuario {
     @Column(name = "cpf")
     private String cpf;
     @Column(name = "data_nascimento")
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     @Column(name = "email")
     private String email;
     @Column(name = "senha")
@@ -35,7 +35,7 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Pet> pets;
 
-    public Usuario(UUID id, String nome, String cpf, Date dataNascimento, String email, String senha, String telefone, Endereco endereco, List<Pet> pets) {
+    public Usuario(UUID id, String nome, String cpf, LocalDate dataNascimento, String email, String senha, String telefone, Endereco endereco, List<Pet> pets) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -75,11 +75,11 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
