@@ -22,6 +22,16 @@ public class Bairro {
     @OneToMany(mappedBy = "bairro")
     private List<Logradouro> logradouros;
 
+    public Bairro(UUID id, String nome, Cidade cidade, List<Logradouro> logradouros) {
+        this.id = id;
+        this.nome = nome;
+        this.cidade = cidade;
+        this.logradouros = logradouros;
+    }
+
+    public Bairro() {
+    }
+
     public UUID getId() {
         return id;
     }

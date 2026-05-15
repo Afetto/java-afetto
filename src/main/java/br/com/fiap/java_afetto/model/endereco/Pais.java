@@ -21,6 +21,16 @@ public class Pais {
     @OneToMany(mappedBy = "pais")
     private List<Estado> estados;
 
+    public Pais(UUID id, String nome, String sigla, List<Estado> estados) {
+        this.id = id;
+        this.nome = nome;
+        this.sigla = sigla;
+        this.estados = estados;
+    }
+
+    public Pais() {
+    }
+
     public UUID getId() {
         return id;
     }

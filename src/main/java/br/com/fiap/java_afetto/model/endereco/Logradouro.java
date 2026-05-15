@@ -22,6 +22,16 @@ public class Logradouro {
     @OneToMany(mappedBy = "logradouro")
     private List<Endereco> enderecos;
 
+    public Logradouro(UUID id, String nome, Bairro bairro, List<Endereco> enderecos) {
+        this.id = id;
+        this.nome = nome;
+        this.bairro = bairro;
+        this.enderecos = enderecos;
+    }
+
+    public Logradouro() {
+    }
+
     public UUID getId() {
         return id;
     }

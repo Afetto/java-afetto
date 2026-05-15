@@ -24,6 +24,17 @@ public class Estado {
     @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades;
 
+    public Estado(UUID id, String nome, String sigla, Pais pais, List<Cidade> cidades) {
+        this.id = id;
+        this.nome = nome;
+        this.sigla = sigla;
+        this.pais = pais;
+        this.cidades = cidades;
+    }
+
+    public Estado() {
+    }
+
     public UUID getId() {
         return id;
     }

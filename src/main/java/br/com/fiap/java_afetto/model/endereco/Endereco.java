@@ -1,5 +1,7 @@
 package br.com.fiap.java_afetto.model.endereco;
 
+import br.com.fiap.java_afetto.model.Usuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -27,6 +29,23 @@ public class Endereco {
     @ManyToOne
     @JoinColumn(name = "id_logradouro", nullable = false)
     private Logradouro logradouro;
+    @OneToOne(mappedBy = "endereco")
+    @JsonIgnore
+    private Usuario usuario;
+
+    public Endereco(UUID id, String numero, String complemento, String cep, BigDecimal latitude, BigDecimal longitude, Logradouro logradouro, Usuario usuario) {
+        this.id = id;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.cep = cep;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.logradouro = logradouro;
+        this.usuario = usuario;
+    }
+
+    public Endereco() {
+    }
 
     public UUID getId() {
         return id;
@@ -82,5 +101,13 @@ public class Endereco {
 
     public void setLogradouro(Logradouro logradouro) {
         this.logradouro = logradouro;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
