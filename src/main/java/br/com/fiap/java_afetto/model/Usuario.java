@@ -13,7 +13,7 @@ import java.util.UUID;
 public class Usuario {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_usuario")
     private UUID id;
     @Column(name = "nome")
@@ -49,7 +49,6 @@ public class Usuario {
 
     public Usuario() {
     }
-
 
     public UUID getId() {
         return id;
