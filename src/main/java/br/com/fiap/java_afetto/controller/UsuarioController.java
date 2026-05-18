@@ -4,6 +4,7 @@ import br.com.fiap.java_afetto.dto.endereco.EnderecoLista;
 import br.com.fiap.java_afetto.dto.usuario.UsuarioLista;
 import br.com.fiap.java_afetto.dto.usuario.UsuarioRequest;
 import br.com.fiap.java_afetto.dto.usuario.UsuarioResponse;
+import br.com.fiap.java_afetto.service.DistanciaService;
 import br.com.fiap.java_afetto.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -19,6 +20,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -27,10 +30,12 @@ import java.util.UUID;
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+    private final DistanciaService distanciaService;
 
 
-    public UsuarioController(UsuarioService usuarioService) {
+    public UsuarioController(UsuarioService usuarioService, DistanciaService distanciaService) {
         this.usuarioService = usuarioService;
+        this.distanciaService = distanciaService;
     }
 
     @Operation(summary = "Cria um usuario")
@@ -82,5 +87,19 @@ public class UsuarioController {
     public ResponseEntity<Void> deleteUsuario(@PathVariable UUID id) {
         usuarioService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "Calcula distância entre dois usuários")
+    @GetMapping("/distancia")
+    public ResponseEntity<Map<String, Object>> calcularDistancia(
+            @RequestParam UUID idUsuario1,
+            @RequestParam UUID idUsuario2) {
+
+        double distancia = distanciaService.calcularDistancia(idUsuario1, idUsuario2);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("distanciaKm", String.format("%.2f km", distancia));
+
+        return ResponseEntity.ok(response);
     }
 }
