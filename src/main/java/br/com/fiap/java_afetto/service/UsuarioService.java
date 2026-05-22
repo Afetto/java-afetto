@@ -64,10 +64,23 @@ public class UsuarioService {
                 .map(usuarioMapper::usuarioToResponseLista);
     }
 
-    public UsuarioResponse update(UUID id, UsuarioRequest usuarioRequest) {
+    public UsuarioResponse update(UUID id, UsuarioRequest request) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
-        BeanUtils.copyProperties(usuarioRequest, usuario);
+
+        usuario.setNome(request.nome());
+        usuario.setCpf(request.cpf());
+        usuario.setEmail(request.email());
+        usuario.setSenha(request.senha());
+        usuario.setTelefone(request.telefone());
+        usuario.setDataNascimento(request.dataNascimento());
+
+        if (request.idEndereco() != null) {
+            Endereco endereco = enderecoRepository.findById(request.idEndereco())
+                    .orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado"));
+            usuario.setEndereco(endereco);
+        }
+
         return usuarioMapper.usuarioToResponse(usuarioRepository.save(usuario));
     }
 
