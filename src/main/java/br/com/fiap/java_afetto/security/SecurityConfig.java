@@ -21,27 +21,36 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
 
+                //Verificação pra ver se o flyway foi professor
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.disable())
+                )
+
                 .authorizeHttpRequests(auth -> auth
 
                         .requestMatchers(
                                 "/",
                                 "/login",
                                 "/swagger-ui/**",
-                                "/v3/api-docs/**"
+                                "/v3/api-docs/**",
+                                "/h2-console/**"
                         ).permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/usuario")
                         .permitAll()
-
                         .requestMatchers(HttpMethod.PATCH, "/usuario/*/role")
                         .authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/usuario/**")
+                        .hasRole("ADMIN")
 
                         .requestMatchers("/pais").hasRole("ADMIN")
                         .requestMatchers("/estado").hasRole("ADMIN")
                         .requestMatchers("/cidade").hasRole("ADMIN")
                         .requestMatchers("/bairro").hasRole("ADMIN")
                         .requestMatchers("/logradouro").hasRole("ADMIN")
-                        .requestMatchers("/endereco").authenticated()
+                        .requestMatchers("/endereco").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/pet/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/usuario/**").hasAnyRole("USER", "ADMIN")
 
                         .anyRequest()
                         .authenticated()
