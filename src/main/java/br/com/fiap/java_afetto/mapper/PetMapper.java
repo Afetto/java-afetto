@@ -62,6 +62,7 @@ public class PetMapper {
                         .withRel("Detalhes do usuário");
 
         return new PetLista(
+                pet.getId(),
                 pet.getNome(),
                 pet.getEspecie(),
                 pet.getRaca(),

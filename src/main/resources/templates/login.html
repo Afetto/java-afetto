@@ -1,60 +1,96 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Login - Afetto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Afetto - Login</title>
+
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body>
+<body class="login-body">
 
-<h1>Login</h1>
+<div class="login-container">
 
-<form id="loginForm">
+  <div class="login-card">
 
-  <input
-          type="email"
-          id="email"
-          placeholder="Email"
-          required
-  >
+    <h1>Afetto</h1>
 
-  <input
-          type="password"
-          id="senha"
-          placeholder="Senha"
-          required
-  >
+    <p>Entre para acompanhar seus pets</p>
 
-  <button type="submit">
-    Entrar
-  </button>
+    <form id="loginForm">
 
-</form>
+      <label for="email">E-mail</label>
+      <input
+              type="email"
+              id="email"
+              placeholder="seu@email.com"
+              required
+      >
+
+      <label for="senha">Senha</label>
+      <input
+              type="password"
+              id="senha"
+              placeholder="Sua senha"
+              required
+      >
+
+      <button type="submit">
+        Entrar
+      </button>
+
+    </form>
+
+    <p id="mensagem"></p>
+
+  </div>
+
+</div>
 
 <script>
+
   document
           .getElementById("loginForm")
           .addEventListener("submit", async function(event) {
 
             event.preventDefault();
 
+            const email =
+                    document.getElementById("email").value;
+
+            const senha =
+                    document.getElementById("senha").value;
+
             const response = await fetch("/login", {
+
               method: "POST",
+
               headers: {
                 "Content-Type": "application/json"
               },
+
               body: JSON.stringify({
-                email: document.getElementById("email").value,
-                senha: document.getElementById("senha").value
+                email: email,
+                senha: senha
               })
+
             });
 
             if (response.ok) {
+
               window.location.href = "/";
+
             } else {
-              alert("Email ou senha inválidos");
+
+              document.getElementById("mensagem")
+                      .innerText = "E-mail ou senha inválidos";
+
             }
+
           });
+
 </script>
 
 </body>
