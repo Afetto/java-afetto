@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Afetto</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    header {
+      background-color: white;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      opacity: 0.7;
+    }
+
+    .hero {
+      min-height: 75vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .hero-content {
+      max-width: 700px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .primary {
+      background-color: #222;
+      color: white;
+    }
+
+    .secondary {
+      background-color: white;
+      color: #222;
+      border: 1px solid #ccc;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background-color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    Afetto
+  </div>
+
+  <nav>
+    <a href="/">Início</a>
+    <a href="/pets">Pets</a>
+    <a href="/veterinarios">Veterinários</a>
+    <a href="/login">Entrar</a>
+  </nav>
+</header>
+
+<main class="hero">
+
+  <div class="hero-content">
+
+    <h1>Cuidado inteligente para o seu pet</h1>
+
+    <p>
+      Acompanhe a saúde do seu pet, encontre veterinários
+      e tenha acesso às principais informações em um só lugar.
+    </p>
+
+    <div class="buttons">
+
+      <a href="/pets" class="button primary">
+        Meus Pets
+      </a>
+
+      <a href="/veterinarios" class="button secondary">
+        Encontrar Veterinário
+      </a>
+
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2026 Afetto</p>
+</footer>
+
+</body>
+</html>

@@ -4,6 +4,7 @@ import br.com.fiap.java_afetto.dto.endereco.EnderecoLista;
 import br.com.fiap.java_afetto.dto.usuario.UsuarioLista;
 import br.com.fiap.java_afetto.dto.usuario.UsuarioRequest;
 import br.com.fiap.java_afetto.dto.usuario.UsuarioResponse;
+import br.com.fiap.java_afetto.dto.usuario.UsuarioRoleRequest;
 import br.com.fiap.java_afetto.service.DistanciaService;
 import br.com.fiap.java_afetto.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -101,5 +102,17 @@ public class UsuarioController {
         response.put("distanciaKm", String.format("%.2f km", distancia));
 
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "Troca a role do usuário")
+    @PatchMapping("/{id}/role")
+    public ResponseEntity<UsuarioResponse> alterarRole(
+            @PathVariable UUID id,
+            @Valid @RequestBody UsuarioRoleRequest request
+    ) {
+
+        UsuarioResponse usuario = usuarioService.alterarRole(id, request);
+
+        return ResponseEntity.ok(usuario);
     }
 }

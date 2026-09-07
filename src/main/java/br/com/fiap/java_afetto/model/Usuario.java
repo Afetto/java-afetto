@@ -16,26 +16,51 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_usuario")
     private UUID id;
+
     @Column(name = "nome")
     private String nome;
+
     @Column(name = "cpf")
     private String cpf;
+
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
-    @Column(name = "email")
+
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
-    @Column(name = "senha")
+
+    @Column(name = "senha", nullable = false)
     private String senha;
+
     @Column(name = "telefone")
     private String telefone;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private UserRole role;
 
     @OneToOne
     @JoinColumn(name = "id_endereco", nullable = true)
     private Endereco endereco;
+
     @OneToMany(mappedBy = "usuario")
     private List<Pet> pets;
 
-    public Usuario(UUID id, String nome, String cpf, LocalDate dataNascimento, String email, String senha, String telefone, Endereco endereco, List<Pet> pets) {
+    public Usuario() {
+    }
+
+    public Usuario(
+            UUID id,
+            String nome,
+            String cpf,
+            LocalDate dataNascimento,
+            String email,
+            String senha,
+            String telefone,
+            UserRole role,
+            Endereco endereco,
+            List<Pet> pets
+    ) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -43,11 +68,9 @@ public class Usuario {
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
+        this.role = role;
         this.endereco = endereco;
         this.pets = pets;
-    }
-
-    public Usuario() {
     }
 
     public UUID getId() {
@@ -104,6 +127,14 @@ public class Usuario {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public Endereco getEndereco() {

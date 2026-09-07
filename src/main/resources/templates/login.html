@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Afetto</title>
+</head>
+
+<body>
+
+<h1>Login</h1>
+
+<form id="loginForm">
+
+  <input
+          type="email"
+          id="email"
+          placeholder="Email"
+          required
+  >
+
+  <input
+          type="password"
+          id="senha"
+          placeholder="Senha"
+          required
+  >
+
+  <button type="submit">
+    Entrar
+  </button>
+
+</form>
+
+<script>
+  document
+          .getElementById("loginForm")
+          .addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            const response = await fetch("/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                email: document.getElementById("email").value,
+                senha: document.getElementById("senha").value
+              })
+            });
+
+            if (response.ok) {
+              window.location.href = "/";
+            } else {
+              alert("Email ou senha inválidos");
+            }
+          });
+</script>
+
+</body>
+</html>

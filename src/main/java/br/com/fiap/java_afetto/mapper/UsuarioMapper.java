@@ -24,7 +24,7 @@ public class UsuarioMapper {
         Link linkUsuario = linkTo(methodOn(UsuarioController.class).readUsuario(usuario.getId())).withRel("Detalhes do usuário");
         Link linkEndereco = usuario.getEndereco() != null ?
                 linkTo(methodOn(EnderecoController.class).readEndereco(usuario.getEndereco().getId())).withRel("Detalhes do endereço"): null;
-        return new UsuarioLista(usuario.getNome(), usuario.getTelefone(), linkUsuario, linkEndereco);
+        return new UsuarioLista(usuario.getNome(), usuario.getTelefone(), usuario.getRole(), linkUsuario, linkEndereco);
     }
 
 }
