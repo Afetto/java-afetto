@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @GetMapping("/")
+    @Operation(summary = "Acessa o index")
     public String home() {
         return "index";
     }
