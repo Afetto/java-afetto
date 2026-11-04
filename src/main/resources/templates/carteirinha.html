@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Afetto - Carteirinha de Vacinação</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<header class="header">
+    <h2>Afetto</h2>
+
+    <nav>
+        <a th:href="@{/}">Início</a>
+        <a th:href="@{/pets}">Pets</a>
+        <a th:href="@{/vacinas}">Vacinas</a>
+        <a th:href="@{/status-vacinacao}">Situação Vacinal</a>
+        <a th:href="@{/distancia}">Distância</a>
+        <a th:href="@{/carteirinha}">Carteirinha</a>
+        <a th:href="@{/logout}">Sair</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <h1>Carteirinha de Vacinação</h1>
+
+        <p>
+            Consulte o histórico de vacinação
+            e acompanhe as próximas doses do seu pet.
+        </p>
+    </section>
+
+    <section class="form-card">
+
+        <h2>Selecionar Pet</h2>
+
+        <form th:action="@{/carteirinha}" method="get">
+
+            <label for="idPet">Pet</label>
+
+            <select id="idPet" name="idPet" required>
+
+                <option value="">Selecione um pet</option>
+
+                <option th:each="item : ${pets}"
+                        th:value="${item.id}"
+                        th:text="${item.nome + ' - ' + item.especie}"
+                        th:selected="${item.id == idPetSelecionado}">
+                </option>
+
+            </select>
+
+            <button type="submit">
+                Consultar carteirinha
+            </button>
+
+        </form>
+
+    </section>
+
+    <section th:if="${pet != null}">
+
+        <section class="form-card">
+
+            <h2>Informações do Pet</h2>
+
+            <p>
+                <strong>Nome:</strong>
+                <span th:text="${pet.nome}"></span>
+            </p>
+
+            <p>
+                <strong>Espécie:</strong>
+                <span th:text="${pet.especie}"></span>
+            </p>
+
+            <p>
+                <strong>Raça:</strong>
+                <span th:text="${pet.raca ?: '-'}"></span>
+            </p>
+
+            <p>
+                <strong>Sexo:</strong>
+                <span th:text="${pet.sexo}"></span>
+            </p>
+
+            <p>
+                <strong>Total de vacinas:</strong>
+                <span th:text="${totalVacinas}"></span>
+            </p>
+
+        </section>
+
+        <h2>Histórico de Vacinação</h2>
+
+        <div th:if="${#lists.isEmpty(vacinas)}"
+             class="form-card">
+
+            <p>
+                Nenhuma vacina cadastrada para este pet.
+            </p>
+
+            <a th:href="@{/vacinas}">
+                Cadastrar vacina
+            </a>
+
+        </div>
+
+        <div th:unless="${#lists.isEmpty(vacinas)}"
+             class="cards">
+
+            <div th:each="vacina : ${vacinas}"
+                 class="card">
+
+                <h3 th:text="${vacina.nomeVacina}">
+                    Nome da vacina
+                </h3>
+
+                <p>
+                    <strong>Fabricante:</strong>
+                    <span th:text="${vacina.fabricante ?: '-'}"></span>
+                </p>
+
+                <p>
+                    <strong>Lote:</strong>
+                    <span th:text="${vacina.lote ?: '-'}"></span>
+                </p>
+
+                <p>
+                    <strong>Aplicação:</strong>
+                    <span th:text="${#temporals.format(
+                        vacina.dataAplicacao, 'dd/MM/yyyy')}">
+                    </span>
+                </p>
+
+                <p>
+                    <strong>Próxima dose:</strong>
+
+                    <span th:if="${vacina.proximaDose != null}"
+                          th:text="${#temporals.format(
+                          vacina.proximaDose, 'dd/MM/yyyy')}">
+                    </span>
+
+                    <span th:unless="${vacina.proximaDose != null}">
+                        Não definida
+                    </span>
+                </p>
+
+                <p>
+                    <strong>Situação:</strong>
+
+                    <span th:text="${vacina.situacao}"
+                          th:style="${vacina.situacao == 'ATRASADA'
+                          ? 'color: #c62828; font-weight: bold;'
+                          : (vacina.situacao == 'PRÓXIMA DOSE'
+                          ? 'color: #e69500; font-weight: bold;'
+                          : 'color: #2e7d32; font-weight: bold;')}">
+                    </span>
+                </p>
+
+                <p th:if="${vacina.observacoes != null
+                         and !vacina.observacoes.isBlank()}">
+
+                    <strong>Observações:</strong>
+                    <span th:text="${vacina.observacoes}"></span>
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <section class="form-card">
+
+            <a th:href="@{/status-vacinacao(idPet=${pet.id})}">
+                Ver situação vacinal completa
+            </a>
+
+        </section>
+
+    </section>
+
+</main>
+
+</body>
+</html>

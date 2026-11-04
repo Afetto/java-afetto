@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Afetto - Distância Geográfica</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<header class="header">
+    <h2>Afetto</h2>
+
+    <nav>
+        <a th:href="@{/}">Início</a>
+        <a th:href="@{/pets}">Pets</a>
+        <a th:href="@{/vacinas}">Vacinas</a>
+        <a th:href="@{/distancia}">Distância</a>
+        <a th:href="@{/logout}">Sair</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <h1>Distância Geográfica</h1>
+
+        <p>
+            Calcule a distância entre dois usuários
+            utilizando suas coordenadas geográficas.
+        </p>
+    </section>
+
+    <section class="form-card">
+
+        <h2>Calcular distância</h2>
+
+        <form th:action="@{/distancia}" method="post">
+
+            <label for="usuario1">Primeiro usuário</label>
+
+            <select id="usuario1"
+                    name="idUsuario1"
+                    required>
+
+                <option value="">Selecione um usuário</option>
+
+                <option th:each="usuario : ${usuarios}"
+                        th:value="${usuario.id}"
+                        th:text="${usuario.nome}"
+                        th:selected="${usuario.id == idUsuario1}">
+                </option>
+
+            </select>
+
+            <label for="usuario2">Segundo usuário</label>
+
+            <select id="usuario2"
+                    name="idUsuario2"
+                    required>
+
+                <option value="">Selecione um usuário</option>
+
+                <option th:each="usuario : ${usuarios}"
+                        th:value="${usuario.id}"
+                        th:text="${usuario.nome}"
+                        th:selected="${usuario.id == idUsuario2}">
+                </option>
+
+            </select>
+
+            <button type="submit">
+                Calcular distância
+            </button>
+
+        </form>
+
+        <p th:if="${erro}"
+           th:text="${erro}"
+           style="color: #c62828;">
+        </p>
+
+    </section>
+
+    <section class="form-card"
+             th:if="${distancia != null}">
+
+        <h2>Resultado</h2>
+
+        <div class="status-card">
+
+            <h3>Distância calculada</h3>
+
+            <h1>
+                <span th:text="${distancia}"></span> km
+            </h1>
+
+            <p>
+                Distância em linha reta, calculada
+                pela fórmula de Haversine.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+</html>

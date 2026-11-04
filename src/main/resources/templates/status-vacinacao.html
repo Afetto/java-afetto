@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Afetto - Situação Vacinal</title>
+
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<header class="header">
+  <h2>Afetto</h2>
+
+  <nav>
+    <a th:href="@{/}">Início</a>
+    <a th:href="@{/pets}">Pets</a>
+    <a th:href="@{/vacinas}">Vacinas</a>
+    <a th:href="@{/distancia}">Distância</a>
+    <a th:href="@{/status-vacinacao}">Situação Vacinal</a>
+    <a th:href="@{/logout}">Sair</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h1>Situação Vacinal</h1>
+
+    <p>
+      Acompanhe a vacinação dos seus pets,
+      identifique atrasos e próximas doses.
+    </p>
+  </section>
+
+  <section class="form-card">
+
+    <h2>Consultar vacinação</h2>
+
+    <form th:action="@{/status-vacinacao}"
+          method="get">
+
+      <label for="idPet">Selecione um pet</label>
+
+      <select id="idPet" name="idPet" required>
+
+        <option value="">
+          Selecione um pet
+        </option>
+
+        <option th:each="pet : ${pets}"
+                th:value="${pet.id}"
+                th:text="${pet.nome + ' - ' + pet.especie}"
+                th:selected="${pet.id == idPetSelecionado}">
+        </option>
+
+      </select>
+
+      <button type="submit">
+        Consultar situação
+      </button>
+
+    </form>
+
+    <p th:if="${erro}"
+       th:text="${erro}"
+       style="color: #c62828;">
+    </p>
+
+  </section>
+
+  <section th:if="${statusVacinal != null}">
+
+    <h2 th:text="${'Vacinação de ' + statusVacinal.pet}">
+      Vacinação do Pet
+    </h2>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>💉 Total de vacinas</h3>
+
+        <h2 th:text="${statusVacinal.totalVacinas}">
+          0
+        </h2>
+      </div>
+
+      <div class="card">
+        <h3>✅ Vacinas em dia</h3>
+
+        <h2 th:text="${statusVacinal.vacinasEmDia}">
+          0
+        </h2>
+      </div>
+
+      <div class="card">
+        <h3>⚠️ Vacinas atrasadas</h3>
+
+        <h2 th:text="${statusVacinal.vacinasAtrasadas}">
+          0
+        </h2>
+      </div>
+
+      <div class="card">
+        <h3>📅 Próximas doses</h3>
+
+        <h2 th:text="${statusVacinal.proximasVacinas}">
+          0
+        </h2>
+      </div>
+
+    </div>
+
+    <section class="form-card">
+
+      <h2>Situação geral</h2>
+
+      <div class="status-card">
+
+        <h3 th:if="${statusVacinal.status == 'EM_DIA'}">
+          ✅ Vacinação em dia
+        </h3>
+
+        <h3 th:if="${statusVacinal.status == 'ATENCAO'}">
+          ⚠️ Atenção: existem vacinas atrasadas
+        </h3>
+
+        <h3 th:if="${statusVacinal.status == 'PROXIMA_DOSE'}">
+          📅 Existem próximas doses programadas
+        </h3>
+
+        <p th:if="${statusVacinal.totalVacinas == 0}">
+          Nenhuma vacina cadastrada para este pet.
+        </p>
+
+      </div>
+
+      <a th:href="@{/vacinas}">
+        Gerenciar vacinas
+      </a>
+
+    </section>
+
+  </section>
+
+</main>
+
+</body>
+</html>
